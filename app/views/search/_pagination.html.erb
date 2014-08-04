@@ -1,0 +1,4 @@
+<ul class="pager">
+  <li class="previous <%= 'disabled' if @currentPage == 1 %>"><a href="#" onclick="update('page', '<%= @currentPage-1 %>', true); return false;">&larr; Previous</a></li>
+  <li class="next <%= 'disabled' if @currentPage == @totalPages %>"><a href="#" onclick="update('page', '<%= @currentPage+1 %>', true); return false;">More &rarr;</a></li>
+</ul>

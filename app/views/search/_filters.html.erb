@@ -1,0 +1,92 @@
+<div class="panel-group" id="accordion" >
+	  <div class="panel panel-default">
+		<div class="panel-heading">
+		  <h4 class="panel-title">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#sortBy">
+		      Sort By
+		    </a>
+		  </h4>
+		</div>
+		<div id="sortBy" class="panel-collapse collapse">
+		  <div class="panel-body text-center">
+			  <div class="btn-group">
+				  <button type="button" class="btn btn-default btn-sm <%= 'active' if @sort == 'relevance'%>" onclick="update('sort', 'relevance', true);">Relevance</button>
+				  <button type="button" class="btn btn-default btn-sm <%= 'active' if @sort == 'date'%>" onclick="update('sort', 'date', true);">Date</button>
+			  </div>
+		  </div>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+		<div class="panel-heading">
+		  <h4 class="panel-title">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#inCountry">
+		     In Country
+		    </a>
+		  </h4>
+		</div>
+		<div id="inCountry" class="panel-collapse collapse">
+		  <div class="panel-body text-center">
+			 <form >
+			  	<select id="country">
+			  		<% @countries.each { |key, val| %>
+			  			<option value="<%= key %>" <%= "selected" if key == @country %>><%= key %></option>
+			  		<% } %>
+			  	</select>
+			  	<button type="button" class="btn btn-primary btn-xs" onclick="update('country', 'country');">Update</button>
+		  	</form>
+		  </div>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+		<div class="panel-heading">
+		  <h4 class="panel-title">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#title">
+		      Title
+		    </a>
+		  </h4>
+		</div>
+		<div id="title" class="panel-collapse collapse">
+		  <div class="panel-body text-left">
+			  <ul class="list-unstyled">
+				<% @titles.each { |val| %>
+					<li><button type="button" class="btn btn-link" onclick="search('<%= val %>', '<%= @where %>');">
+					<% if val.length < 25 %>
+						<%= val %>
+					<% else %>
+						<%= val[0..24] + '..' %>
+					<% end %>
+					</button>
+				<% } %></li>
+				</ul>
+		  </div>
+	    </div>
+	  </div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		  <h4 class="panel-title">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#location">
+		      Location
+		    </a>
+		  </h4>
+		</div>
+		<div id="location" class="panel-collapse collapse">
+		  <div class="panel-body text-left">
+			  <ul class="list-unstyled">
+				<% @locations.each { |val| %>
+					<li><button type="button" class="btn btn-link" onclick="search('<%= @what %>', '<%= val %>');">
+					<% if val.length < 25 %>
+						<%= val %>
+					<% else %>
+						<%= val[0..24] + '..' %>
+					<% end %>
+					</button>
+				<% } %></li>
+				</ul>
+		  </div>
+	    </div>
+	  </div>
+
+	</div>

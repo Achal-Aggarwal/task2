@@ -1,0 +1,32 @@
+<div class="<%= 'jumbotron' if @jobs.blank? %>">
+    <p class="lead text-center" style="<%= 'font-size:19px;' unless @jobs.blank? %>">What <input type="text" name="what" id="what" value="<%= @what %>" placeholder="job title, keywords or company name" style="width:360px;">
+    Where <input type="text" name="where" id="where" value="<%= @where %>" placeholder="city or state">
+    <button type="button" class="btn btn-primary <%= 'btn-block' if @jobs.blank? %>" onclick="search()" style="<%= 'margin-top:15px;padding-top:5px;padding-bottom:5px;' if @jobs.blank? %>">Search</button></p>
+</div>
+<%= render "jobstat" unless @jobs.blank? %>
+<div class="row ">
+<div class="col-lg-4">
+
+	<%= render "filters" unless @jobs.blank? %>
+
+</div>
+<div class="col-lg-8" style="border-left: 1px solid #aaa;">
+	<% if !@jobs.blank? %>
+	  <% for job in @jobs %>
+		 <h4><%= link_to job['jobtitle'], job['url'], target: "_blank" %> <span style="font-size:75%;" class="text-<%= job['expired']? "danger" : "success" %>"><%= job['expired']? "Expired" : "Apply Now" %></span></h4>
+		  <p class="text-info"><%= job['company'] %> - <%= job['city'] %>, <%= job['state'] %>, <%= job['country'] %>
+		  	<% if job['latitude'] != nil && job['longitude'] != nil %>
+		  		<%= link_to 'Map', "http://maps.google.com/?q=#{job['latitude']},#{job['longitude']}",  target: "_blank", 'class' => 'btn btn-info btn-xs btn-map'%>
+		  	<% end %>
+		  </p>
+		  <p><%= job['snippet'].html_safe %></p>
+		  <p><span class="text-warning"><%= job['formattedRelativeTime'] %></span><span class="text-muted"> - <%= job['date'] %></span></p>
+	  <% end %>
+
+	  <%= render "pagination" %>
+
+
+	<% end %>
+
+</div>
+</div>
